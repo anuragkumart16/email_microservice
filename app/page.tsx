@@ -106,6 +106,59 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Healthcheck Endpoint */}
+          <div className="rounded-3xl border border-zinc-800 bg-zinc-900/50 overflow-hidden backdrop-blur-sm">
+            <div className="border-b border-zinc-800 px-6 py-4 flex items-center gap-3 bg-zinc-900/80">
+              <span className="px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 text-xs font-bold tracking-wide border border-blue-500/20">
+                GET
+              </span>
+              <code className="text-sm font-mono text-zinc-300">/api/healthcheck</code>
+            </div>
+
+            <div className="p-6 md:p-8 space-y-8">
+
+              {/* Description */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                  <FaCheckCircle className="text-zinc-500" /> Description
+                </h3>
+                <p className="text-zinc-400 leading-relaxed">
+                  Check if the microservice is up and running. This endpoint requires no authentication and can be used for monitoring.
+                </p>
+              </div>
+
+              {/* Example Request */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                  <FaTerminal className="text-zinc-500" /> Example Usage
+                </h3>
+                <div className="bg-black rounded-xl border border-zinc-800 p-5 overflow-x-auto">
+                  <code className="text-sm font-mono text-green-400">
+                    curl http://localhost:3000/api/healthcheck
+                  </code>
+                </div>
+              </div>
+
+              {/* Response */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                  <FaCode className="text-zinc-500" /> Response
+                </h3>
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition duration-500 blur"></div>
+                  <pre className="relative bg-zinc-950 rounded-xl border border-zinc-800 p-5 overflow-x-auto text-sm font-mono text-zinc-300">
+                    {`{
+  "status": 200,
+  "message": "microservice server is up and running!",
+  "success": true
+}`}
+                  </pre>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </section>
       </main>
     </div>
