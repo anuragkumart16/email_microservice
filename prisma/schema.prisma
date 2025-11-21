@@ -12,5 +12,18 @@ model App{
   name String 
   description String?
   hashid String
+  emailLogs EmailLog[]
+}
+
+model EmailLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  recipient String
+  subject   String
+  body      String
+  status    String
+  error     String?
+  sentAt    DateTime @default(now())
+  appId     String   @db.ObjectId
+  app       App      @relation(fields: [appId], references: [id])
 }
 
