@@ -8,8 +8,8 @@ export async function GET() {
             data: apps,
             message: "Apps fetched Successfully!",
             success: true
-        },{
-             status: 200
+        }, {
+            status: 200
         })
     } catch (error) {
         console.log(error)
@@ -18,8 +18,8 @@ export async function GET() {
             message: "Something went wrong!",
             success: false,
             errorMessage: error
-        },{
-             status: 500
+        }, {
+            status: 500
         })
     }
 }
@@ -53,8 +53,8 @@ export async function POST(request: Request) {
             message: "App created Successfully!",
             success: true,
             token
-        },{
-              status: 200
+        }, {
+            status: 200
         })
     } catch (error) {
         console.log(error)
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
             message: "Something went wrong!",
             success: false,
             errorMessage: error
-        },{
+        }, {
             status: 500
         })
     }
@@ -79,7 +79,7 @@ export async function PATCH(request: Request) {
         return Response.json({
             message: "Id is required",
             success: false
-        },{
+        }, {
             status: 400
         })
     }
@@ -98,7 +98,7 @@ export async function PATCH(request: Request) {
                 data: null,
                 message: "App not found",
                 success: false
-            },{
+            }, {
                 status: 404
             })
         }
@@ -106,7 +106,7 @@ export async function PATCH(request: Request) {
             data: app,
             message: "App updated Successfully!",
             success: true
-        },{
+        }, {
             status: 200
         })
     } catch (error) {
@@ -116,7 +116,7 @@ export async function PATCH(request: Request) {
             message: "Something went wrong",
             success: false,
             errorMessage: error
-        },{
+        }, {
             status: 500
         })
     }
@@ -129,11 +129,19 @@ export async function DELETE(request: Request) {
         return Response.json({
             message: "Id is required",
             success: false
-        },{
+        }, {
             status: 400
         })
     }
     try {
+        // First, delete all associated email logs
+        await prisma.emailLog.deleteMany({
+            where: {
+                appId: id
+            }
+        })
+
+        // Then delete the app
         const app = await prisma.app.delete({
             where: {
                 id: id
@@ -145,7 +153,7 @@ export async function DELETE(request: Request) {
                 data: null,
                 message: "App not found",
                 success: false
-            },{
+            }, {
                 status: 404
             })
         }
@@ -154,7 +162,7 @@ export async function DELETE(request: Request) {
             data: app,
             message: "App deleted Successfully!",
             success: true
-        },{
+        }, {
             status: 200
         })
     } catch (error) {
@@ -164,7 +172,7 @@ export async function DELETE(request: Request) {
             message: "Something went wrong",
             success: false,
             errorMessage: error
-        },{
+        }, {
             status: 500
         })
     }
